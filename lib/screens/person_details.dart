@@ -16,6 +16,7 @@ class _PersonDetailsState extends State<PersonDetails> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
+  TextEditingController salaryController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,17 @@ class _PersonDetailsState extends State<PersonDetails> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 15.0, bottom: 15.0, left: 15.0),
+                child: TextField(
+                  controller: salaryController,
+                  decoration: const InputDecoration(
+                    labelText: 'salary',
+                    icon: Icon(Icons.apps_outage_outlined),
+                  ),
+                ),
+              ),
               // Fourth Element
               Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -82,6 +94,7 @@ class _PersonDetailsState extends State<PersonDetails> {
                           Person person = widget.person;
                           person.name = nameController.text;
                           person.age = int.parse(ageController.text);
+                          person.salary = double.parse(salaryController.text);
                           _saveData(person);
                         },
                       ),

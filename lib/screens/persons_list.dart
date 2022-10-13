@@ -66,7 +66,8 @@ class _PersonsListState extends State<PersonsList> {
                   fontSize: 25.0
               ),
             ),
-            subtitle: Text(personList![position].age.toString(),
+            subtitle: Text(
+              "${personList![position].age} --> ${personList![position].salary}" ,
               style: const TextStyle(
                   color: Colors.white
               ),

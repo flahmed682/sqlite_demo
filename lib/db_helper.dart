@@ -15,8 +15,8 @@ class DbHelper extends LiteDb {
 
   insertNewPerson(Person person) async {
     String sql = '''
-       INSERT INTO PERSON(name, age)
-       VALUES ( '${person.name}' , ${person.age})
+       INSERT INTO PERSON(name, age, salary)
+       VALUES ( '${person.name}' , ${person.age} , ${person.salary})
     ''';
     int result = await insert(sql);
     return result;
@@ -26,7 +26,8 @@ class DbHelper extends LiteDb {
     String sql = '''
        UPDATE PERSON SET 
        name = '${person.name}',
-       age = ${person.age}
+       age = ${person.age},
+       salary = ${person.salary}
        WHERE 
        id = ${person.id}
     ''';

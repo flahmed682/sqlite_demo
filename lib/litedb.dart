@@ -15,13 +15,12 @@ class LiteDb {
   }
 
   instance() async {
-
     // Get a location using getDatabasesPath
     var databasesPath = await getDatabasesPath();
     String path = join(databasesPath, 'lite_sql.db');
 
     // open the database
-    Database database = await openDatabase(path, version: 1,
+    Database database = await openDatabase(path, version: 2,
         onCreate: (Database db, int version) async {
           // When creating the db, create the table
           await db.execute(
@@ -30,7 +29,15 @@ class LiteDb {
                 CREATE TABLE ACCOUNT (id INTEGER  PRIMARY KEY AUTOINCREMENT, PERSON_ID INTEGER NOT  NULL, ACCOUNT INTEGER NOT NULL, VALUE REAL);
               ''');
           print('Text Database has been created');
-        });
+        },
+        onUpgrade: (Database db, int oldVersion, int newVersion) async {
+          if (newVersion >= 2) {
+            await db.execute('''
+            ALTER TABLE PERSON ADD COLUMN salary REAL NULL
+            ''');
+          }
+        }
+    );
     print(' Database connected');
     return database;
   }

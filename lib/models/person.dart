@@ -5,8 +5,9 @@ class Person {
   int id;
   String name;
   int age;
+  double salary;
 
-  Person({required this.id, required this.name, required this.age});
+  Person({required this.id, required this.name, required this.age, this.salary = 0.0});
 
   factory Person.getNewEmpty() {
     return Person(
@@ -20,7 +21,8 @@ class Person {
     return Person(
         id: map['id'] ?? 0,
         name: map['name'] ?? '',
-        age: map['age'] ?? 0
+        age: map['age'] ?? 0,
+        salary: map['salary']?.toDouble() ?? 0.0
     );
   }
 }
