@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqlite_demo/db_helper.dart';
 import 'package:sqlite_demo/models/person.dart';
 import 'package:sqlite_demo/screens/person_details.dart';
 
@@ -11,19 +12,20 @@ class PersonsList extends StatefulWidget {
 
 class _PersonsListState extends State<PersonsList> {
 
+  DbHelper helper = DbHelper();
+
   List<Person>? personList;
   int count = 0;
 
-  void updateListView() {
-    personList = [];
-    personList?.add(Person(id: 1, name: 'Ahmed', age: 30));
-    personList?.add(Person(id: 2, name: 'Mohamed', age: 31));
-    personList?.add(Person(id: 3, name: 'Salah', age: 32));
+  void updateListView() async {
+    personList = await helper.getAllPersons();
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     if (personList == null) {
+      personList = [];
       updateListView();
     }
 

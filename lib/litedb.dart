@@ -29,8 +29,9 @@ class LiteDb {
                 CREATE TABLE PERSON (id INTEGER  PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, age INTEGER);
                 CREATE TABLE ACCOUNT (id INTEGER  PRIMARY KEY AUTOINCREMENT, PERSON_ID INTEGER NOT  NULL, ACCOUNT INTEGER NOT NULL, VALUE REAL);
               ''');
+          print('Text Database has been created');
         });
-    print('Text Database has been created');
+    print(' Database connected');
     return database;
   }
 

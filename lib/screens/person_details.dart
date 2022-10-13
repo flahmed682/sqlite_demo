@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqlite_demo/db_helper.dart';
 import 'package:sqlite_demo/models/person.dart';
 
 class PersonDetails extends StatefulWidget {
@@ -11,6 +12,7 @@ class PersonDetails extends StatefulWidget {
 }
 
 class _PersonDetailsState extends State<PersonDetails> {
+  DbHelper helper = DbHelper();
 
   TextEditingController nameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
@@ -77,7 +79,10 @@ class _PersonDetailsState extends State<PersonDetails> {
                         ) ,
                         child: const Text( 'Save',textScaleFactor: 1.5,),
                         onPressed: () {
-
+                          Person person = widget.person;
+                          person.name = nameController.text;
+                          person.age = int.parse(ageController.text);
+                          _saveData(person);
                         },
                       ),
                     ),
@@ -108,7 +113,22 @@ class _PersonDetailsState extends State<PersonDetails> {
     );
   }
 
+  _saveData(Person person) async {
+    if (person.id == 0) {
+      await helper.insertNewPerson(person);
+    }
+    moveToLastScreen();
+  }
+
   void moveToLastScreen(){
     Navigator.pop(context, true);
+  }
+
+  void _showAlertDialog(String title, String message){
+    AlertDialog alertDialog = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    showDialog(context:context, builder:(_) => alertDialog);
   }
 }
