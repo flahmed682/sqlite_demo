@@ -21,4 +21,26 @@ class DbHelper extends LiteDb {
     int result = await insert(sql);
     return result;
   }
+
+  updatePerson(Person person) async {
+    String sql = '''
+       UPDATE PERSON SET 
+       name = '${person.name}',
+       age = ${person.age}
+       WHERE 
+       id = ${person.id}
+    ''';
+    int result = await update(sql);
+    return result;
+  }
+
+  deletePerson(Person person) async {
+    String sql = '''
+       DELETE FROM PERSON
+       WHERE 
+       id = ${person.id}
+    ''';
+    int result = await update(sql);
+    return result;
+  }
 }

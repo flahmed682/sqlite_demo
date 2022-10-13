@@ -99,7 +99,7 @@ class _PersonDetailsState extends State<PersonDetails> {
                         ) ,
                         child: const Text( 'Delete',textScaleFactor: 1.5,),
                         onPressed: () {
-
+                          _deleteData(widget.person);
                         },
                       ),
                     ),
@@ -116,6 +116,15 @@ class _PersonDetailsState extends State<PersonDetails> {
   _saveData(Person person) async {
     if (person.id == 0) {
       await helper.insertNewPerson(person);
+    } else {
+      await helper.updatePerson(person);
+    }
+    moveToLastScreen();
+  }
+
+  _deleteData(Person person) async {
+    if (person.id > 0) {
+      await helper.deletePerson(person);
     }
     moveToLastScreen();
   }
