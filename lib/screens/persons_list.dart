@@ -89,7 +89,7 @@ class _PersonsListState extends State<PersonsList> {
     ));
     if(result == true){
       updateListView();
-    }else if(result == null){
+    }else if(result == false){
       const Text("No Notes to Show");
     }
   }
